@@ -51,7 +51,6 @@ class m240327_095839_create_book_table extends Migration
             'id' => $this->primaryKey(),
             "title" => $this->string(),
             "parent_id" => $this->integer(),
-            'image_id' =>  $this->integer()
         ]);
 
         $this->createIndex(
