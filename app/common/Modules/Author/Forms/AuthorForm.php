@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace common\Modules\Author\Forms;
 
+use common\Modules\Author\Entities\Author;
 use yii\base\Model;
 
 class AuthorForm extends Model
 {
     public string $biography;
     public string $name;
+
+    public function __construct(Author $author = null, $config = [])
+    {
+        parent::__construct($config);
+        if($author) {
+            $this->biography = $author->biography;
+            $this->name = $author->name;
+        }
+    }
 
     final public function rules()
     {
@@ -19,9 +29,6 @@ class AuthorForm extends Model
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [

@@ -21,7 +21,11 @@ return [
             'driver' => yii\queue\amqp_interop\Queue::ENQUEUE_AMQP_LIB,
             'dsn' => 'amqp://rabbitmq:password@localhost:56721/%2F',
         ],
-
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'dektrium\user\Module',
+        ],
     ],
 
 ];

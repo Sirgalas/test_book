@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace common\Modules\Image\Forms;
 
+use common\Modules\Image\Entities\Image;
 use PhpParser\Node\Expr\BinaryOp\Mod;
 use yii\base\Model;
 /**
@@ -16,12 +17,27 @@ use yii\base\Model;
  * */
 class ImageForm extends Model
 {
-    public $id;
+    public int $id;
     public string $extension;
     public string $name;
     public string $url;
     public string $created_at;
     public string $updated_at;
+
+
+    public function __construct(Image $image = null, $config = [])
+    {
+        parent::__construct($config);
+        if($image) {
+            $this->id = $image->id;
+            $this->extension = $image->extension;
+            $this->name = $image->name;
+            $this->url = $image->url;
+            $this->created_at = $image->created_at;
+            $this->updated_at = $image->updated_at;
+        }
+    }
+
     public function rules()
     {
         return [

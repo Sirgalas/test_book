@@ -5,10 +5,10 @@
 
 use common\widgets\Alert;
 use frontend\assets\AppAsset;
-use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
+use yii\bootstrap4\Breadcrumbs;
+use yii\bootstrap4\Html;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 
 AppAsset::register($this);
 ?>
@@ -36,9 +36,13 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Follow', 'url' => ['/site/follow']],
-
     ];
+    if(Yii::$app->user->identity != null) {
+        $menuItems[] = ['label' => 'About us', 'url' => ['/site/about']];
+        $menuItems[] = ['label' => 'Logout', 'url' => ['/user/security/logout']];
+    } else {
+        $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
+    }
 
 
     echo Nav::widget([

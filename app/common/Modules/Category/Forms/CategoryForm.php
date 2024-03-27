@@ -13,9 +13,15 @@ class CategoryForm extends Model
     public int $parent_id;
     public string $title;
 
-    /**
-     * {@inheritdoc}
-     */
+    public function __construct(Category $category = null, $config = [])
+    {
+        parent::__construct($config);
+        if($category) {
+            $this->parent_id = $category->parent_id;
+            $this->title = $category->title;
+        }
+    }
+
     public function rules()
     {
         return [
@@ -26,7 +32,7 @@ class CategoryForm extends Model
                 'exist',
                 'skipOnError' => true,
                 'targetClass' => Category::class, '
-                targetAttribute' => ['parent_id' => 'id']
+                targetAttribute' => ['parent_id' => 'id'],
             ],
         ];
     }
