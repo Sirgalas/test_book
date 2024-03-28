@@ -9,13 +9,15 @@ use yii\base\Model;
 
 class AuthorForm extends Model
 {
-    public string $biography;
-    public string $name;
+    public ?int $id = null;
+    public ?string $biography = null;
+    public ?string $name = null;
 
     public function __construct(Author $author = null, $config = [])
     {
         parent::__construct($config);
         if($author) {
+            $this->id = $author->id;
             $this->biography = $author->biography;
             $this->name = $author->name;
         }
@@ -24,6 +26,7 @@ class AuthorForm extends Model
     final public function rules()
     {
         return [
+            ['id','integer'],
             [['biography'], 'string'],
             [['name'], 'string', 'max' => 610],
         ];

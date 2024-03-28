@@ -14,7 +14,7 @@ class CategoryRepository
     public function get(int $id): Category
     {
         if(!$category = Category::findOne($id)) {
-            throw new NotFoundHttpException(sprintf('Author id %d not found', $id));
+            throw new NotFoundHttpException(sprintf('Category id %d not found', $id));
         }
         return $category;
     }

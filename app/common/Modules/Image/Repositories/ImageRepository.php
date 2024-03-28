@@ -14,7 +14,7 @@ class ImageRepository
     public function get(int $id): Image
     {
         if(!$image = Image::findOne($id)) {
-            throw new NotFoundHttpException(sprintf('Author id %d not found', $id));
+            throw new NotFoundHttpException(sprintf('Image id %d not found', $id));
         }
         return $image;
     }

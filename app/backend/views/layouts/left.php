@@ -23,6 +23,7 @@
                 'items' => [
                     ['label' => 'Book', 'icon' => 'fa-book', 'url' => ['/gii']],
                     ['label' => 'Category', 'icon' => 'fa-institution', 'url' => ['/debug']],
+                    ['label' => 'Parser', 'icon' => 'fa-search', 'url' => ['/parser']],
                 ],
             ]
         ) ?>

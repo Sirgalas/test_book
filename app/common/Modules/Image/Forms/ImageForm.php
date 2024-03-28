@@ -17,12 +17,10 @@ use yii\base\Model;
  * */
 class ImageForm extends Model
 {
-    public int $id;
-    public string $extension;
-    public string $name;
-    public string $url;
-    public string $created_at;
-    public string $updated_at;
+    public ?int $id = null;
+    public ?string $extension = null;
+    public ?string $name = null;
+    public ?string $url = null;
 
 
     public function __construct(Image $image = null, $config = [])
@@ -33,15 +31,12 @@ class ImageForm extends Model
             $this->extension = $image->extension;
             $this->name = $image->name;
             $this->url = $image->url;
-            $this->created_at = $image->created_at;
-            $this->updated_at = $image->updated_at;
         }
     }
 
     public function rules()
     {
         return [
-            [['created_at', 'updated_at'], 'safe'],
             [['extension', 'name', 'url'], 'string', 'max' => 610],
         ];
     }
@@ -56,8 +51,6 @@ class ImageForm extends Model
             'extension' => 'Extension',
             'name' => 'Name',
             'url' => 'Url',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
         ];
     }
 }

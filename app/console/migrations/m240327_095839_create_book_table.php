@@ -147,6 +147,11 @@ class m240327_095839_create_book_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropTable('{{%books_to_authors}}');
+        $this->dropTable('{{%authors}}');
+        $this->dropTable('{{%books_to_categories}}');
+        $this->dropTable('{{%categories}}');
         $this->dropTable('{{%book}}');
+        $this->dropTable('{{%images}}');
     }
 }

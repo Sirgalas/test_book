@@ -10,13 +10,15 @@ use yii\base\Model;
 class CategoryForm extends Model
 {
 
-    public int $parent_id;
-    public string $title;
+    public ?int $id = null;
+    public ?int $parent_id = null;
+    public ?string $title = null;
 
     public function __construct(Category $category = null, $config = [])
     {
         parent::__construct($config);
         if($category) {
+            $this->id = $category->id;
             $this->parent_id = $category->parent_id;
             $this->title = $category->title;
         }
@@ -25,7 +27,7 @@ class CategoryForm extends Model
     public function rules()
     {
         return [
-            ['parent_id', 'integer'],
+            [['parent_id','id'], 'integer'],
             ['title', 'string', 'max' => 255],
             [
                 ['parent_id'],

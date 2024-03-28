@@ -2,8 +2,11 @@
 
 namespace common\Modules\Image\Entities;
 
+use common\Modules\Book\Entities\Book;
 use common\Modules\Image\Forms\ImageForm;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "images".
@@ -15,10 +18,22 @@ use Yii;
  * @property string|null $created_at
  * @property string|null $updated_at
  *
- * @property Books[] $books
+ * @property Book $books
  */
 class Image extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
 
     public static function create(ImageForm $form): self
     {
@@ -55,8 +70,8 @@ class Image extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBooks()
+    public function getBook()
     {
-        return $this->hasMany(Books::class, ['image_id' => 'id']);
+        return $this->hasOne(Book::class, ['image_id' => 'id']);
     }
 }

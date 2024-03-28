@@ -21,24 +21,22 @@ use yii\base\Model;
 
 class BookForm extends Model
 {
-    public $id;
-    public string $title;
-    public string $isbn;
-    public int $pageCount;
-    public string $publishedDate;
-    public string $shortDescription;
-    public string $longDescription;
+    public ?int $id = null;
+    public ?string $title = null;
+    public ?string $isbn = null;
+    public ?int $pageCount = null;
+    public ?string $publishedDate = null;
+    public ?string $shortDescription = null;
+    public ?string $longDescription = null;
 
-    public string $status;
-    public ImageForm $imageForm;
-    public array $categoryForms;
-    public array $authorForms;
+    public ?string $status = null;
+    public ?ImageForm $imageForm = null;
+    public array $categoryForms = [];
+    public array $authorForms = [];
 
     public function __construct(Book $book = null, $config = [])
     {
         $this->imageForm = new ImageForm();
-        $this->categoryForms = [];
-        $this->authorForms = [];
         parent::__construct($config);
         if($book) {
             $this->title = $book->title;
