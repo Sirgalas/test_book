@@ -8,6 +8,8 @@ use common\Helpers\ErrorHelper;
 use common\Modules\Parser\Forms\TreeForm;
 use yii\httpclient\Client;
 
+use function Symfony\Component\String\u;
+
 class UrlGitLab implements UrlParserInterface
 {
     private $client;
@@ -17,7 +19,7 @@ class UrlGitLab implements UrlParserInterface
     }
     public const PROTOCOL = 'https://';
     public const API_URL = '/api/v4/projects/';
-    public function getUrl(string $url): string
+    public function getDataFromUrl(string $url): string
     {
         [$urlRepository,$meta] = $this->returnArrayUrl($url);
         [$service,$projectId] = $this->explodeUrlAndId($urlRepository);
@@ -30,10 +32,20 @@ class UrlGitLab implements UrlParserInterface
             throw new \RuntimeException('File not found in repository');
         }
         if($formTree->load(array_shift($file),'') && $formTree->validate()) {
-            dd(sprintf('%s/blobs/%s/raw',$this->getApiUrl($service,$projectId),$formTree->id));
-            return sprintf('%s/blobs/%s/raw',$this->getApiUrl($service,$projectId),$formTree->id);
+            return $this->encode(sprintf('%s/blobs/%s',$this->getApiUrl($service,$projectId),$formTree->id));
         }
         throw new \RuntimeException(ErrorHelper::errorsToStr($formTree->errors));
+    }
+
+    private function encode(string $url): string
+    {
+        $response = $this->client->createRequest()->setMethod('GET')
+            ->setUrl($url)->send();
+
+        if(!$response->isOk) {
+            throw new \RuntimeException('File not read in repository');
+        }
+        return base64_decode($response->data['content']);
     }
 
     private function returnArrayUrl(string $url): array

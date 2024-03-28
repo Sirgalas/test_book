@@ -33,8 +33,8 @@ class CategoryForm extends Model
                 ['parent_id'],
                 'exist',
                 'skipOnError' => true,
-                'targetClass' => Category::class, '
-                targetAttribute' => ['parent_id' => 'id'],
+                'targetClass' => Category::class,
+                'targetAttribute' => ['parent_id' => 'id'],
             ],
         ];
     }

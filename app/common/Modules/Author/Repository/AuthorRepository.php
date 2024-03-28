@@ -32,6 +32,10 @@ class AuthorRepository
         }
         return $author;
     }
+    public function existsByQuery(array $query): bool
+    {
+        return Author::find()->where($query)->exists();
+    }
 
     public function delete(int $id): void
     {

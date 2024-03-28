@@ -3,7 +3,10 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\Modules\Parser\Entities\Parser $model */
+/** @var common\Modules\Parser\Entities\Parser $model
+ * @var array $type
+ * @var array $encode
+ */
 
 $this->title = 'Create Parser';
 $this->params['breadcrumbs'][] = ['label' => 'Parsers', 'url' => ['index']];
@@ -15,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'type' => $type,
+        'encode' => $encode
     ]) ?>
 
 </div>

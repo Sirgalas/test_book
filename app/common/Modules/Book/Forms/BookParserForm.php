@@ -19,7 +19,7 @@ use yii\base\Model;
  * @property AuthorForm[] $authorForms
  */
 
-class BookForm extends Model
+class BookParserForm extends Model
 {
     public ?int $id = null;
     public ?string $title = null;
@@ -28,6 +28,8 @@ class BookForm extends Model
     public ?string $publishedDate = null;
     public ?string $shortDescription = null;
     public ?string $longDescription = null;
+
+    public ?string $thumbnailUrl = null;
 
     public ?string $status = null;
     public ?ImageForm $imageForm = null;
@@ -62,21 +64,20 @@ class BookForm extends Model
     public function rules()
     {
         return [
-            [['pageCount', 'image_id'], 'default', 'value' => null],
-            [['pageCount', 'image_id'], 'integer'],
+            [['pageCount'], 'integer'],
             [['publishedDate'], 'safe'],
             [['longDescription'], 'string'],
-            [['title'], 'string', 'max' => 255],
+            [['title','thumbnailUrl'], 'string', 'max' => 255],
             [['isbn'], 'string', 'max' => 20],
             [['shortDescription'], 'string', 'max' => 510],
             [['status'], 'string', 'max' => 200],
-            [
+            /*[
              ['image_id'],
              'exist',
              'skipOnError' => true,
              'targetClass' => Image::class,
              'targetAttribute' => ['image_id' => 'id'],
-            ],
+            ],*/
         ];
     }
 
@@ -100,10 +101,15 @@ class BookForm extends Model
 
     public function load($data, $formName = null): bool
     {
+        if(!empty($data['publishedDate']['$date'])){
+            $publishedDate = $data['publishedDate']['$date'];
+            unset($data['publishedDate']['$date']);
+            $data['publishedDate'] = $publishedDate;
+        }
         if(!empty($data['categories']) && is_array($data['categories'])) {
             foreach ($data['categories'] as $category) {
                 $categoryForm = new CategoryForm();
-                if($categoryForm->load($category,'') && $categoryForm->validate()){
+                if($categoryForm->load(['title' => $category],'') && $categoryForm->validate()){
                     $this->categoryForms[] = $categoryForm;
                 } else {
                     \Yii::error(ErrorHelper::errorsToStr($categoryForm->errors));
@@ -113,7 +119,7 @@ class BookForm extends Model
         if(!empty($data['authors'] && is_array($data['authors']))) {
             foreach ($data['authors'] as $author) {
                 $authorForm = new AuthorForm();
-                if($authorForm->load($author,'') && $author->validate()) {
+                if($authorForm->load(['name' => $author],'') && $authorForm->validate()) {
                     $this->authorForms[] = $authorForm;
                 } else {
                     \Yii::error(ErrorHelper::errorsToStr($authorForm->errors));
@@ -121,16 +127,16 @@ class BookForm extends Model
             }
         }
 
-        if(!empty($data['image'])) {
+        if(!empty($data['thumbnailUrl'])) {
+            $pathInfo = pathinfo($data['thumbnailUrl']);
+            $imageArr = ['extension' => $pathInfo['extension'], 'name' => $pathInfo['filename'],'url'=> Book::URL];
             $imageForm = new ImageForm();
-            if($imageForm->load($data['image'],'') && $imageForm->validate()) {
+            if($imageForm->load($imageArr,'') && $imageForm->validate()) {
                 $this->imageForm = $imageForm;
             } else {
                 \Yii::error(ErrorHelper::errorsToStr($imageForm->errors));
             }
         }
-
         return parent::load($data, $formName);
-
     }
 }

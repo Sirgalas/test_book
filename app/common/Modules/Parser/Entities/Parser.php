@@ -2,7 +2,10 @@
 
 namespace common\Modules\Parser\Entities;
 
+use common\Modules\Parser\Enums\TypeEnum;
 use common\Modules\Parser\Forms\ParserForm;
+use common\Modules\Parser\Services\Decodes\DecodesInterface;
+use common\Modules\Parser\Services\Decodes\JsonDecode;
 use common\Modules\Parser\Services\Types\UrlDefault;
 use common\Modules\Parser\Services\Types\UrlGitLab;
 use common\Modules\Parser\Services\Types\UrlParserInterface;
@@ -24,7 +27,8 @@ class Parser extends \yii\db\ActiveRecord
         $parser = new static();
         $parser->name = $form->name;
         $parser->url = $form->url;
-
+        $parser->type = $form->type;
+        $parser->encode = $form->encode;
         return $parser;
     }
 
@@ -32,6 +36,8 @@ class Parser extends \yii\db\ActiveRecord
     {
         $this->name = $form->name;
         $this->url = $form->url;
+        $this->type = $form->type;
+        $this->encode = $form->encode;
     }
 
     /**
@@ -44,10 +50,15 @@ class Parser extends \yii\db\ActiveRecord
 
     public function getParseType(): UrlParserInterface
     {
-        if(strpos($this->url,'gitlab')) {
+        if($this->type == TypeEnum::GITLAB_TYPE->value) {
             return new UrlGitLab();
         }
         return new UrlDefault();
+    }
+
+    public function getDecode(): DecodesInterface
+    {
+        return new JsonDecode();
     }
 
 }

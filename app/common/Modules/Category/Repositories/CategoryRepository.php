@@ -34,6 +34,11 @@ class CategoryRepository
         return $category;
     }
 
+    public function existsByQuery(array $query): bool
+    {
+        return Category::find()->where($query)->exists();
+    }
+
     public function delete(int $id): void
     {
         $category = $this->get($id);

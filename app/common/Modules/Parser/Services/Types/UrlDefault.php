@@ -8,8 +8,9 @@ namespace common\Modules\Parser\Services\Types;
 
 class UrlDefault implements UrlParserInterface
 {
-    public function getUrl(string $url): string
+    public function getDataFromUrl(string $url): string
     {
-        return $url;
+        return file_get_contents($url);
     }
+
 }

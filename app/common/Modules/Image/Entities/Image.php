@@ -7,6 +7,7 @@ use common\Modules\Image\Forms\ImageForm;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\helpers\FileHelper;
 
 /**
  * This is the model class for table "images".
@@ -41,19 +42,14 @@ class Image extends \yii\db\ActiveRecord
         $image->extension = $form->extension;
         $image->name = $form->name;
         $image->url = $form->url;
-        $image->created_at = $form->created_at;
-        $image->updated_at = $form->updated_at;
         return $image;
     }
 
     public function edit(ImageForm $form): void
     {
-
         $this->extension = $form->extension;
         $this->name = $form->name;
         $this->url = $form->url;
-        $this->created_at = $form->created_at;
-        $this->updated_at = $form->updated_at;
     }
     /**
      * {@inheritdoc}
@@ -73,5 +69,31 @@ class Image extends \yii\db\ActiveRecord
     public function getBook()
     {
         return $this->hasOne(Book::class, ['image_id' => 'id']);
+    }
+
+
+    public function saveFileImage(int $id,$imageUrl)
+    {
+
+        FileHelper::createDirectory($this->getDir($id));
+        copy($imageUrl,$this->getImageUrl($id));
+    }
+
+    public function getDir(int $id): string
+    {
+        return sprintf('uploads/%s/%s',
+            //Yii::getAlias('@backendWeb'),
+            $this->url,
+            $id
+        );
+    }
+
+    public function getImageUrl(int $id):string
+    {
+        return sprintf('%s/%s.%s',
+            $this->getDir($id),
+            $this->name,
+            $this->extension
+        );
     }
 }

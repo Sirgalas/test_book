@@ -2,8 +2,11 @@
 
 namespace backend\controllers;
 
+use common\Helpers\EnumHelpers;
 use common\Modules\Parser\Entities\Parser;
 use backend\SearchForms\ParserSearch;
+use common\Modules\Parser\Enums\EncodesEnum;
+use common\Modules\Parser\Enums\TypeEnum;
 use common\Modules\Parser\Forms\ParserForm;
 use common\Modules\Parser\Services\ParserService;
 use yii\web\Controller;
@@ -78,6 +81,8 @@ class ParserController extends Controller
             }
         return $this->render('create', [
             'model' => $model,
+            'type' => EnumHelpers::enumsToArr(TypeEnum::cases()),
+            'encode' => EnumHelpers::enumsToArr(EncodesEnum::cases()),
         ]);
     }
 
@@ -90,8 +95,11 @@ class ParserController extends Controller
                 $this->parserService->edit($parser,$model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+
             return $this->render('update', [
                 'model' => $model,
+                'type' => EnumHelpers::enumsToArr(TypeEnum::cases()),
+                'encode' => EnumHelpers::enumsToArr(EncodesEnum::cases()),
             ]);
         } catch (NotFoundHttpException $e) {
             \Yii::$app->session->setFlash('error', $e->getMessage());
@@ -101,6 +109,8 @@ class ParserController extends Controller
             \Yii::$app->session->setFlash('error', $e->getMessage());
             return $this->render('update', [
                 'model' => $model,
+                'type' => EnumHelpers::enumsToArr(TypeEnum::cases()),
+                'encode' => EnumHelpers::enumsToArr(EncodesEnum::cases()),
             ]);
         }
     }
@@ -115,5 +125,4 @@ class ParserController extends Controller
         }
         return $this->redirect(['index']);
     }
-
 }

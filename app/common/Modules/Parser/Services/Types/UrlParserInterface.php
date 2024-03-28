@@ -4,5 +4,6 @@ namespace common\Modules\Parser\Services\Types;
 
 interface UrlParserInterface
 {
-    public function getUrl(string $url): string;
+    public function getDataFromUrl(string $url): string;
+
 }

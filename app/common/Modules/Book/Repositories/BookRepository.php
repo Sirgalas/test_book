@@ -33,6 +33,11 @@ class BookRepository
         return $book;
     }
 
+    public function existsByQuery(array $query): bool
+    {
+        return Book::find()->where($query)->exists();
+    }
+
     public function delete(int $id): void
     {
         $book = $this->get($id);
