@@ -43,6 +43,8 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
     }
+    $menuItems[] = ['label' => 'Feedback', 'url' => ['/site/feedback']];
+    $menuItems[] = ['label' => 'Categories', 'url' => ['/category']];
 
 
     echo Nav::widget([
