@@ -65,19 +65,12 @@ class BookParserForm extends Model
     {
         return [
             [['pageCount'], 'integer'],
-            [['publishedDate'], 'safe'],
+            [['publishedDate'], 'datetime'],
             [['longDescription'], 'string'],
             [['title','thumbnailUrl'], 'string', 'max' => 255],
             [['isbn'], 'string', 'max' => 20],
             [['shortDescription'], 'string', 'max' => 510],
             [['status'], 'string', 'max' => 200],
-            /*[
-             ['image_id'],
-             'exist',
-             'skipOnError' => true,
-             'targetClass' => Image::class,
-             'targetAttribute' => ['image_id' => 'id'],
-            ],*/
         ];
     }
 

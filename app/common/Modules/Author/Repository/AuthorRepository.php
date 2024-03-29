@@ -6,6 +6,7 @@ namespace common\Modules\Author\Repository;
 
 use common\Helpers\ErrorHelper;
 use common\Modules\Author\Entities\Author;
+use common\Modules\Category\Entities\Category;
 use yii\web\NotFoundHttpException;
 
 class AuthorRepository
@@ -41,5 +42,14 @@ class AuthorRepository
     {
         $author = $this->get($id);
         $author->delete();
+    }
+
+    public function getAllByQuery(array $query =[]):array
+    {
+        $authors = Author::find();
+        if(!empty($query)) {
+            $authors->where($query);
+        }
+        return $authors->all();
     }
 }

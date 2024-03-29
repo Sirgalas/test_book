@@ -17,7 +17,7 @@
         "php": ">=8.1.0",
         "ext-gd": "*",
         "yiisoft/yii2": "~2.0.45",
-        "yiisoft/yii2-bootstrap4": "~2.0.2",
+        "yiisoft/yii2-bootstrap4": "^2.0",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "php-amqplib/php-amqplib": "^3.6",
         "enqueue/amqp-lib": "^0.10.19",
@@ -27,7 +27,9 @@
         "dmstr/yii2-adminlte-asset": "^2.6",
         "dektrium/yii2-user": "^0.9.14",
         "symfony/var-dumper": "^6.4",
-        "paulzi/yii2-nested-sets": "^1.1"
+        "paulzi/yii2-nested-sets": "^1.1",
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "kartik-v/yii2-widget-datetimepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

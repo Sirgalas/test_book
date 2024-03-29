@@ -44,4 +44,13 @@ class CategoryRepository
         $category = $this->get($id);
         $category->delete();
     }
+
+    public function getAllByQuery(array $query = []):array
+    {
+        $categories = Category::find();
+        if(!empty($query)) {
+            $categories->where($query);
+        }
+        return $categories->all();
+    }
 }
