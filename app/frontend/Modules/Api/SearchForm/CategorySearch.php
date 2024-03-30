@@ -35,7 +35,7 @@ class CategorySearch extends Category
         return Model::scenarios();
     }
 
-    public function search($params): ArrayHelper
+    public function search($params): array
     {
         $query = Category::find();
 
@@ -55,6 +55,9 @@ class CategorySearch extends Category
         $query->andFilterWhere(['ilike', 'title', $this->title]);
         $countQuery = clone $query;
         $pagination = new Pagination(['totalCount' => $countQuery->count()]);
-        return [$query->offset($pagination->offset)->limit($pagination->limit)->all()->all(), $pagination];
+        return [
+            'categories' => $query->offset($pagination->offset)->limit($pagination->limit)->all(),
+            'total_page' => $pagination->pageCount
+            ];
     }
 }

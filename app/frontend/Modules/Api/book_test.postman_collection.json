@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "dd81cf4f-2992-44a1-8717-8f88cbdcbbd8",
+		"name": "book_test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2658356"
+	},
+	"item": [
+		{
+			"name": "category index",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ZsDFQrWIac-1JfXV6kZEXyFrxrwYce-9_1711819271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "ZsDFQrWIac-1JfXV6kZEXyFrxrwYce-9_1711819271",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://frontend.local/api/category/index?page=2",
+					"protocol": "http",
+					"host": [
+						"frontend",
+						"local"
+					],
+					"path": [
+						"api",
+						"category",
+						"index"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user authentication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"Sergalas\",\n    \"password\":\"Serg@1978\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://frontend.local/api/user/authentication",
+					"protocol": "http",
+					"host": [
+						"frontend",
+						"local"
+					],
+					"path": [
+						"api",
+						"user",
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "category one",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ZsDFQrWIac-1JfXV6kZEXyFrxrwYce-9_1711819271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://frontend.local/api/category/one?id=571",
+					"protocol": "http",
+					"host": [
+						"frontend",
+						"local"
+					],
+					"path": [
+						"api",
+						"category",
+						"one"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "571"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ZsDFQrWIac-1JfXV6kZEXyFrxrwYce-9_1711819271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"rest_test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://frontend.local/api/category/create",
+					"protocol": "http",
+					"host": [
+						"frontend",
+						"local"
+					],
+					"path": [
+						"api",
+						"category",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ZsDFQrWIac-1JfXV6kZEXyFrxrwYce-9_1711819271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\":\"rest_test_1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://frontend.local/api/category/update?id=590",
+					"protocol": "http",
+					"host": [
+						"frontend",
+						"local"
+					],
+					"path": [
+						"api",
+						"category",
+						"update"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "590"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ZsDFQrWIac-1JfXV6kZEXyFrxrwYce-9_1711819271",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://frontend.local/api/category/delete?id=590",
+					"protocol": "http",
+					"host": [
+						"frontend",
+						"local"
+					],
+					"path": [
+						"api",
+						"category",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "590"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

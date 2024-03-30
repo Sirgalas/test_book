@@ -13,6 +13,8 @@ class AbstractController extends ActiveController
 {
     use HeaderTrait;
 
+
+
     public function behaviors(): array
     {
         $behaviors= ArrayHelper::merge([
@@ -22,7 +24,7 @@ class AbstractController extends ActiveController
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
             'except' => ['authentication','options'],
-            'optional' => ['options']
+            'optional' => ['options'],
         ];
         $behaviors['contentNegotiator'] = [
             'class' => \yii\filters\ContentNegotiator::class,
@@ -33,12 +35,7 @@ class AbstractController extends ActiveController
         return $behaviors;
     }
 
-    /*public function init()
-    {
-        parent::init();
-        \Yii::$app->user->enableSession = false;
-    }
-*/
+
     /**
      *
      * @return array
@@ -61,11 +58,22 @@ class AbstractController extends ActiveController
 //        return true;
 //    }
 
-    protected function sendError($error)
+    protected function sendError($error,$code = 404)
     {
+        $this->setHeader($code);
         return [
+            'payload' => null,
             'error' => [
-                'message' =>$error]
+                'message' =>$error],
+        ];
+    }
+
+    protected function sendSucces(array $message = ['success' => 'ok'])
+    {
+        $this->setHeader(200);
+        return [
+            'payload' => $message,
+            'error' => null,
         ];
     }
 }

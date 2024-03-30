@@ -21,7 +21,6 @@ class Api extends \yii\base\Module
     {
         parent::init();
 
-
         \Yii::$app->setComponents([
             'request' => [
                 'class'=>\yii\web\Request::class,

@@ -28,15 +28,13 @@ class UserController extends AbstractController
         try {
             $loginForm = new RestLoginForm();
             if($loginForm->load(\Yii::$app->request->post(),'') && $loginForm->validate()) {
-                return $this->userService->auth($loginForm);
+                return $this->sendSucces(['token' => $this->userService->auth($loginForm)]);
             }
-            $this->setHeader(400);
-            //dd($loginForm,\Yii::$app->request->post());
-            return ['error' => ErrorHelper::errorsToStr($loginForm->errors)];
+            return $this->sendError(ErrorHelper::errorsToStr($loginForm->errors),400);
         } catch (AccessException $e) {
-            $this->setHeader(404);
-            return ['error' => $e->getMessage()];
+            return $this->sendError($e->getMessage());
         }
-
     }
+
+
 }
