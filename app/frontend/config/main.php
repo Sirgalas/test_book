@@ -52,5 +52,8 @@ return [
             // following line will restrict access to admin controller from frontend application
             'as frontend' => 'dektrium\user\filters\FrontendFilter',
         ],
+        'api' => [
+            'class' => 'frontend\Modules\Api\Api',
+        ],
     ],
 ];
