@@ -18,23 +18,6 @@ class CategoryController extends AbstractController
     public $modelClass = Category::class;
     private CategoryService $service;
 
-    public function behaviors(): array
-    {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => \yii\filters\VerbFilter::class,
-                    'actions' => [
-                        'index'  => ['GET'],
-                        'one'   => ['GET'],
-                        'create' => ['POST'],
-                        'update' => ['PUT',],
-                        'delete' => ['DELETE'],
-                    ],
-                ],
-            ]);
-    }
 
 
     public function __construct($id, $module,CategoryService $service, $config = [])
